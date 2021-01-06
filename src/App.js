@@ -7,9 +7,9 @@ class App extends Component {
   //state
   state= {
     persons : [
-      {name : 'Pulkit', age : '21'},
-      {name : 'Pankaj', age : '22'},
-      {name : 'Nitin', age : '23'}
+      {id : 'qwer', name : 'Pulkit', age : '21'},
+      {id : 'asdf', name : 'Pankaj', age : '22'},
+      {id : 'zxcv', name : 'Nitin', age : '23'}
     ]
   }
 
@@ -40,7 +40,8 @@ class App extends Component {
   }
 
   deleteHandler = (personIndex) => {
-    const persons = this.state.persons;
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({persons : persons});
   }
@@ -53,7 +54,7 @@ class App extends Component {
   render() {
 
     const style ={
-      'background-color' : 'white',
+      backgroundColor : 'white',
       font : 'inherit',
       border : '1px solid red',
       padding : '8px',
@@ -68,7 +69,9 @@ class App extends Component {
             return <Person 
               click = {() => this.deleteHandler('index')}
               name = {person.name}
-              age = {person.age} />
+              age = {person.age} 
+              key = {person.id}
+              />
           })}
         {/* <Person name={this.state.person[0].name} age={this.state.person[0].age} click={this.switchNameHandler.bind(this, 'Sachin')}></Person>
         <Person name={this.state.person[1].name} age={this.state.person[1].age} >i like Cricket</Person>
