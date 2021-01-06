@@ -6,7 +6,7 @@ import Person from './Person/Person';
 class App extends Component {
   //state
   state= {
-    person : [
+    persons : [
       {name : 'Pulkit', age : '21'},
       {name : 'Pankaj', age : '22'},
       {name : 'Nitin', age : '23'}
@@ -19,7 +19,7 @@ class App extends Component {
     //^set state feature in function for updating DOM
 
     this.setState ({
-      person: [
+      persons: [
         {name : newName, age : 23},
         {name : 'Pulkit', age : 21},
         {name : 'Pankaj', age : 22},
@@ -39,6 +39,12 @@ class App extends Component {
     })
   }
 
+  deleteHandler = (personIndex) => {
+    const persons = this.state.persons;
+    persons.splice(personIndex, 1);
+    this.setState({persons : persons});
+  }
+
   togglePersonHandler = () =>{
     const doesShow = this.state.showPersons;
     this.setState({showPersons: !doesShow })
@@ -54,19 +60,32 @@ class App extends Component {
       cursor : 'pointer'
     }
 
+    let persons = null;
+    if(this.state.showPersons){
+      persons = (
+        <div>
+          {this.state.persons.map(person => {
+            return <Person 
+              click = {() => this.deleteHandler('index')}
+              name = {person.name}
+              age = {person.age} />
+          })}
+        {/* <Person name={this.state.person[0].name} age={this.state.person[0].age} click={this.switchNameHandler.bind(this, 'Sachin')}></Person>
+        <Person name={this.state.person[1].name} age={this.state.person[1].age} >i like Cricket</Person>
+        <Person name={this.state.person[2].name} age={this.state.person[2].age} changed={this.nameChangeHandler}>{this.state.counter}</Person> */}
+        </div>
+      )
+    }
+
     return (
       <div className="App">
         <h1>React App</h1>
         
-        { this.state.showPersons ?
-          <div>
-        <Person name={this.state.person[0].name} age={this.state.person[0].age} click={this.switchNameHandler.bind(this, 'Sachin')}></Person>
-        <Person name={this.state.person[1].name} age={this.state.person[1].age} >i like Cricket</Person>
-        <Person name={this.state.person[2].name} age={this.state.person[2].age} changed={this.nameChangeHandler}>{this.state.counter}</Person>
-        </div> : null
-        }
-
-        <button onClick = {this.togglePersonHandler} style={style}> Switch Names </button>
+       {/* { this.state.showPersons ? */}
+          
+        {/* } */}
+        {persons}
+        <button onClick = {this.togglePersonHandler} style={style}> Toggle cards </button>
       </div>
     );
   }
