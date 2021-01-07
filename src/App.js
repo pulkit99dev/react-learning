@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Radium from 'radium'
+import Radium, {StyleRoot} from 'radium'
 
 class App extends Component {
   //state
@@ -116,6 +116,7 @@ class App extends Component {
     }
 
     return (
+      <StyleRoot>
       <div className="App">
         <h1>React App</h1>
         
@@ -126,6 +127,7 @@ class App extends Component {
         <p className = {classes.join(' ')}> Testing dynamic styling</p>
         <button onClick = {this.togglePersonHandler} style={style}> Toggle cards </button>
       </div>
+      </StyleRoot>
     );
   }
 }
