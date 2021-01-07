@@ -3,6 +3,20 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 // import Radium, {StyleRoot} from 'radium'
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+background-color : ${props => props.alt ? 'red' : 'green'};
+color : white;
+font : inherit;
+border : 1px solid red;
+padding : 8px;
+cursor : pointer;
+&:hover {
+  background-color :${props => props.alt ? 'pink' : 'lightgreen'};;
+  color: black;
+}
+  `
 
 class App extends Component {
   //state
@@ -97,11 +111,11 @@ class App extends Component {
         <Person name={this.state.person[2].name} age={this.state.person[2].age} changed={this.nameChangeHandler}>{this.state.counter}</Person> */}
         </div>
       )
-      style.backgroundColor = 'red';
-      style [':hover'] = {
-        backgroundColor :'pink',
-        color: 'black'
-      }
+      // style.backgroundColor = 'red';
+      // style [':hover'] = {
+      //   backgroundColor :'pink',
+      //   color: 'black'
+      // }
     }
 
 
@@ -125,7 +139,7 @@ class App extends Component {
         {/* } */}
         {persons}
         <p className = {classes.join(' ')}> Testing dynamic styling</p>
-        <button onClick = {this.togglePersonHandler} style={style}> Toggle cards </button>
+        <StyledButton onClick = {this.togglePersonHandler} alt={this.state.showPersons} > Toggle cards </StyledButton>
       </div>
       // </StyleRoot>
     );
