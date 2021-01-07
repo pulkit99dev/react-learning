@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Radium from 'radium'
 
 class App extends Component {
   //state
@@ -65,11 +66,16 @@ class App extends Component {
   render() {
 
     const style ={
-      backgroundColor : 'white',
+      backgroundColor : 'green',
+      color : 'white',
       font : 'inherit',
       border : '1px solid red',
       padding : '8px',
-      cursor : 'pointer'
+      cursor : 'pointer',
+      ':hover' : {
+        backgroundColor :'lightgreen',
+        font: 'black'
+      }
     }
 
     let persons = null;
@@ -84,12 +90,29 @@ class App extends Component {
               key = {person.id}
               changed = {(event) => this.nameChangeHandler(event, person.id)}
               />
+              
           })}
         {/* <Person name={this.state.person[0].name} age={this.state.person[0].age} click={this.switchNameHandler.bind(this, 'Sachin')}></Person>
         <Person name={this.state.person[1].name} age={this.state.person[1].age} >i like Cricket</Person>
         <Person name={this.state.person[2].name} age={this.state.person[2].age} changed={this.nameChangeHandler}>{this.state.counter}</Person> */}
         </div>
       )
+      style.backgroundColor = 'red';
+      style [':hover'] = {
+        backgroundColor :'pink',
+        color: 'black'
+      }
+    }
+
+
+    let classes = [];
+    if(this.state.persons <= 2){
+      classes.push('red')
+    }
+    if(this.state.persons <= 1){
+      classes.push('bold');
+    }else{
+      classes.push('bolder');
     }
 
     return (
@@ -100,13 +123,14 @@ class App extends Component {
           
         {/* } */}
         {persons}
+        <p className = {classes.join(' ')}> Testing dynamic styling</p>
         <button onClick = {this.togglePersonHandler} style={style}> Toggle cards </button>
       </div>
     );
   }
 }
 
-export default App;
+export default Radium(App);
 
 
 
