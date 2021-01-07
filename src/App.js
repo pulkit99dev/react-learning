@@ -1,22 +1,22 @@
 //^Class based components
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 // import Radium, {StyleRoot} from 'radium'
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-const StyledButton = styled.button`
-background-color : ${props => props.alt ? 'red' : 'green'};
-color : white;
-font : inherit;
-border : 1px solid red;
-padding : 8px;
-cursor : pointer;
-&:hover {
-  background-color :${props => props.alt ? 'pink' : 'lightgreen'};;
-  color: black;
-}
-  `
+// const StyledButton = styled.button`
+// background-color : ${props => props.alt ? 'red' : 'green'};
+// color : white;
+// font : inherit;
+// border : 1px solid red;
+// padding : 8px;
+// cursor : pointer;
+// &:hover {
+//   background-color :${props => props.alt ? 'pink' : 'lightgreen'};;
+//   color: black;
+// }
+  // `
 
 class App extends Component {
   //state
@@ -79,20 +79,23 @@ class App extends Component {
 
   render() {
 
-    const style ={
-      backgroundColor : 'green',
-      color : 'white',
-      font : 'inherit',
-      border : '1px solid red',
-      padding : '8px',
-      cursor : 'pointer',
-      ':hover' : {
-        backgroundColor :'lightgreen',
-        font: 'black'
-      }
-    }
+    // const style ={
+    //   backgroundColor : 'green',
+    //   color : 'white',
+    //   font : 'inherit',
+    //   border : '1px solid red',
+    //   padding : '8px',
+    //   cursor : 'pointer',
+    //   ':hover' : {
+    //     backgroundColor :'lightgreen',
+    //     font: 'black'
+    //   }
+    // }
 
     let persons = null;
+
+    let btnClass = ' ';
+
     if(this.state.showPersons){
       persons = (
         <div>
@@ -111,6 +114,9 @@ class App extends Component {
         <Person name={this.state.person[2].name} age={this.state.person[2].age} changed={this.nameChangeHandler}>{this.state.counter}</Person> */}
         </div>
       )
+
+      btnClass = classes.Red;
+
       // style.backgroundColor = 'red';
       // style [':hover'] = {
       //   backgroundColor :'pink',
@@ -119,27 +125,25 @@ class App extends Component {
     }
 
 
-    let classes = [];
+    let assignedClasses = [];
     if(this.state.persons <= 2){
-      classes.push('red')
+      assignedClasses.push(classes.red)
     }
     if(this.state.persons <= 1){
-      classes.push('bold');
-    }else{
-      classes.push('bolder');
+      assignedClasses.push(classes.bold);
     }
 
     return (
       // <StyleRoot>
-      <div className="App">
+      <div className={classes.App}>
         <h1>React App</h1>
         
        {/* { this.state.showPersons ? */}
           
         {/* } */}
         {persons}
-        <p className = {classes.join(' ')}> Testing dynamic styling</p>
-        <StyledButton onClick = {this.togglePersonHandler} alt={this.state.showPersons} > Toggle cards </StyledButton>
+        <p className = {assignedClasses.join(' ')}> Testing dynamic styling</p>
+        <button className={btnClass} onClick = {this.togglePersonHandler} alt={this.state.showPersons} > Toggle cards </button>
       </div>
       // </StyleRoot>
     );
