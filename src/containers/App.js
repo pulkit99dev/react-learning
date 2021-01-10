@@ -1,22 +1,11 @@
 //^Class based components
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
-// import Radium, {StyleRoot} from 'radium'
-// import styled from 'styled-components';
+// import Person from '../components/Persons/Person/Person';
+import Persons from '../components/Persons/Persons'
+import person from '../components/Persons/Person/Person';
+import Cockpit from '../components/Cockpit/Cockpit';
 
-// const StyledButton = styled.button`
-// background-color : ${props => props.alt ? 'red' : 'green'};
-// color : white;
-// font : inherit;
-// border : 1px solid red;
-// padding : 8px;
-// cursor : pointer;
-// &:hover {
-//   background-color :${props => props.alt ? 'pink' : 'lightgreen'};;
-//   color: black;
-// }
-  // `
 
 class App extends Component {
   //state
@@ -53,8 +42,6 @@ class App extends Component {
       ...this.state.persons[personIndex]
     }
 
-// const person = Object.assign({}, this.state.persons[personIndex]);
-
     person.name = event.target.value;
 
     const persons = [...this.state.persons];
@@ -66,7 +53,6 @@ class App extends Component {
   }
 
   deleteHandler = (personIndex) => {
-    // const persons = this.state.persons.slice();
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({persons : persons});
@@ -79,72 +65,34 @@ class App extends Component {
 
   render() {
 
-    // const style ={
-    //   backgroundColor : 'green',
-    //   color : 'white',
-    //   font : 'inherit',
-    //   border : '1px solid red',
-    //   padding : '8px',
-    //   cursor : 'pointer',
-    //   ':hover' : {
-    //     backgroundColor :'lightgreen',
-    //     font: 'black'
-    //   }
-    // }
-
     let persons = null;
 
-    let btnClass = ' ';
+    
 
     if(this.state.showPersons){
-      persons = (
-        <div>
-          {this.state.persons.map(person => {
-            return <Person 
-              click = {() => this.deleteHandler('index')}
-              name = {person.name}
-              age = {person.age} 
-              key = {person.id}
-              changed = {(event) => this.nameChangeHandler(event, person.id)}
-              />
-              
-          })}
-        {/* <Person name={this.state.person[0].name} age={this.state.person[0].age} click={this.switchNameHandler.bind(this, 'Sachin')}></Person>
-        <Person name={this.state.person[1].name} age={this.state.person[1].age} >i like Cricket</Person>
-        <Person name={this.state.person[2].name} age={this.state.person[2].age} changed={this.nameChangeHandler}>{this.state.counter}</Person> */}
-        </div>
-      )
-
-      btnClass = classes.Red;
-
-      // style.backgroundColor = 'red';
-      // style [':hover'] = {
-      //   backgroundColor :'pink',
-      //   color: 'black'
-      // }
+      persons = 
+          <Persons 
+            persons = {this.state.persons}
+            clicked={this.deleteHandler}
+            changed = {this.nameChangeHandler}
+          />
     }
 
-
-    let assignedClasses = [];
-    if(this.state.persons <= 2){
-      assignedClasses.push(classes.red)
-    }
-    if(this.state.persons <= 1){
-      assignedClasses.push(classes.bold);
-    }
+   
 
     return (
       // <StyleRoot>
       <div className={classes.App}>
-        <h1>React App</h1>
         
-       {/* { this.state.showPersons ? */}
-          
-        {/* } */}
+        <Cockpit 
+        
+        showPersons={this.state.showPersons} 
+        persons={this.state.persons} 
+        clicked={this.togglePersonHandler} />
+
         {persons}
-        <p className = {assignedClasses.join(' ')}> Testing dynamic styling</p>
-        <button className={btnClass} onClick = {this.togglePersonHandler} alt={this.state.showPersons} > Toggle cards </button>
-      </div>
+        
+        </div>
       // </StyleRoot>
     );
   }
